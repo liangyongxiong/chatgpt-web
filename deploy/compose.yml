@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    image: dev/chatgpt
+    container_name: chatgpt
+    network_mode: bridge
+    restart: always
+    tty: true
+    ports:
+      - 172.17.0.1:3002:3002
+    environment:
+      TZ: Asia/Shanghai
+      TIMEOUT_MS: 60000
+      AUTH_SECRET_KEY: xxx
+      OPENAI_API_KEY: sk-xxx
+      OPENAI_API_BASE_URL: http://example.com/api/openai
+      SOCKS_PROXY_HOST: 172.17.0.1
+      SOCKS_PROXY_PORT: 1080
+      HTTPS_PROXY: http://username:password@192.168.10.10:8080

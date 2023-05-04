@@ -28,5 +28,7 @@ coverage
 *.sln
 *.sw?
 
-# Environment variables files
+.husky
+
 /service/.env
+/service/public/

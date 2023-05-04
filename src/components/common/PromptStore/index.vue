@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { DataTableColumns } from 'naive-ui'
 import { computed, h, ref, watch } from 'vue'
-import { NButton, NCard, NDataTable, NDivider, NInput, NList, NListItem, NModal, NPopconfirm, NSpace, NTabPane, NTabs, NThing, useMessage } from 'naive-ui'
+import { NButton, NCard, NDataTable, NInput, NList, NListItem, NModal, NPopconfirm, NSpace, NTabPane, NTabs, NThing, useMessage } from 'naive-ui'
 import PromptRecommend from '../../../assets/recommend.json'
 import { SvgIcon } from '..'
 import { usePromptStore } from '@/store'
@@ -327,7 +327,7 @@ const dataSource = computed(() => {
 </script>
 
 <template>
-  <NModal v-model:show="show" style="width: 90%; max-width: 900px;" preset="card">
+  <NModal v-model:show="show" :mask-closable="false" style="width: 90%; max-width: 900px;" preset="card">
     <div class="space-y-4">
       <NTabs type="segment">
         <NTabPane name="local" :tab="$t('store.local')">
@@ -409,7 +409,7 @@ const dataSource = computed(() => {
               {{ $t('common.download') }}
             </NButton>
           </div>
-          <NDivider />
+          <br>
           <div class="max-h-[360px] overflow-y-auto space-y-4">
             <NCard
               v-for="info in promptRecommendList"
@@ -418,7 +418,7 @@ const dataSource = computed(() => {
               embedded
             >
               <p
-                class="overflow-hidden text-ellipsis whitespace-nowrap"
+                class="overflow-hidden text-ellipsis whitespace-wrap"
                 :title="info.desc"
               >
                 {{ info.desc }}

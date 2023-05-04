@@ -20,9 +20,16 @@ app.all('*', (_, res, next) => {
 })
 
 router.post('/chat-process', [auth, limiter], async (req, res) => {
-  res.setHeader('Content-type', 'application/octet-stream')
-
   try {
+    const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY
+    const hasAuth = isNotEmptyString(AUTH_SECRET_KEY)
+    if (hasAuth && req.headers.authorization && req.headers.authorization !== `Bearer ${AUTH_SECRET_KEY}`) {
+      res.send({ status: 'Unauthorized', message: '', data: null })
+      return
+    }
+
+    res.setHeader('Content-type', 'application/octet-stream')
+
     const { prompt, options = {}, systemMessage, temperature, top_p } = req.body as RequestProps
     let firstChunk = true
     await chatReplyProcess({
@@ -59,6 +66,10 @@ router.post('/session', async (req, res) => {
   try {
     const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY
     const hasAuth = isNotEmptyString(AUTH_SECRET_KEY)
+    if (hasAuth && req.headers.authorization && req.headers.authorization !== `Bearer ${AUTH_SECRET_KEY}`) {
+      res.send({ status: 'Unauthorized', message: '', data: null })
+      return
+    }
     res.send({ status: 'Success', message: '', data: { auth: hasAuth, model: currentModel() } })
   }
   catch (error) {

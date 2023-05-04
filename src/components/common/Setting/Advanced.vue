@@ -28,19 +28,16 @@ function handleReset() {
 </script>
 
 <template>
-  <div class="p-4 space-y-5 min-h-[200px]">
+  <div class="px-0 py-4 space-y-5 min-h-[200px]">
     <div class="space-y-6">
       <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[120px]">{{ $t('setting.role') }}</span>
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.role') }}</span>
         <div class="flex-1">
-          <NInput v-model:value="systemMessage" type="textarea" :autosize="{ minRows: 1, maxRows: 4 }" />
+          <NInput v-model:value="systemMessage" type="textarea" :autosize="{ minRows: 3, maxRows: 6 }" placeholder="" />
         </div>
-        <NButton size="tiny" text type="primary" @click="updateSettings({ systemMessage })">
-          {{ $t('common.save') }}
-        </NButton>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[120px]">{{ $t('setting.temperature') }} </span>
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.temperature') }} </span>
         <div class="flex-1">
           <NSlider v-model:value="temperature" :max="2" :min="0" :step="0.1" />
         </div>
@@ -50,7 +47,7 @@ function handleReset() {
         </NButton>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[120px]">{{ $t('setting.top_p') }} </span>
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.top_p') }} </span>
         <div class="flex-1">
           <NSlider v-model:value="top_p" :max="1" :min="0" :step="0.1" />
         </div>
@@ -59,10 +56,14 @@ function handleReset() {
           {{ $t('common.save') }}
         </NButton>
       </div>
+      <br>
       <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[120px]">&nbsp;</span>
+        <span class="flex-shrink-0 w-[100px]">&nbsp;</span>
         <NButton size="small" @click="handleReset">
           {{ $t('common.reset') }}
+        </NButton>
+        <NButton size="small" type="primary" @click="updateSettings({ systemMessage })">
+          {{ $t('common.save') }}
         </NButton>
       </div>
     </div>
